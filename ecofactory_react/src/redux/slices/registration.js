@@ -15,6 +15,9 @@ const registration = createSlice({
   name: "registration",
   initialState,
   reducers: {
+    resetRegisterForm(state) {
+      return initialState;
+    },
     handleRegisterFormChange(state, action) {
       const dataChange = action.payload;
       return { ...state, [dataChange.name]: dataChange.value };
@@ -22,6 +25,6 @@ const registration = createSlice({
   },
 });
 
-export const { handleRegisterFormChange } = registration.actions;
+export const { resetRegisterForm, handleRegisterFormChange } = registration.actions;
 
 export default registration.reducer;

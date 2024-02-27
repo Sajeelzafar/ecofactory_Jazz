@@ -9,9 +9,12 @@ class ComplaintController {
       transaction = await db.sequelize.transaction();
 
       // Create a new merchant with the provided details
-      const newComplaint = await db.Complaint.create(complaintsData, {
-        transaction,
-      });
+      const newComplaint = await db.Complaint.create(
+        { ...complaintsData, status: "Unanswered", anwserToMessage: "" },
+        {
+          transaction,
+        }
+      );
 
       // Commit the transaction
       await transaction.commit();
@@ -28,6 +31,40 @@ class ComplaintController {
     } catch (error) {
       console.error("Error fetching complaints:", error);
       res.status(500).json({ error: "Failed to fetch complaints" });
+    }
+  }
+
+  async getComplaint(req, res) {
+    const { id } = req.params;
+    try {
+      // Find the complaint with the specified id
+      const complaint = await db.Complaint.findByPk(id);
+      if (!complaint) {
+        return res.status(404).json({ error: 'Complaint not found' });
+      }
+      // Return the complaint data
+      return res.status(200).json(complaint);
+    } catch (error) {
+      console.error('Error fetching complaint:', error);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+  }
+
+  async updateComplaint(req, res) {
+    const { id } = req.params;
+    const { answer } = req.body;
+    console.log(id, answer);
+    try {
+      // Find the complaint with the specified id
+      const complaint = await db.Complaint.findByPk(id);
+      if (!complaint) {
+        return res.status(404).json({ error: 'Complaint not found' });
+      }
+      await complaint.update({ anwserToMessage: answer, status: "Answered" });
+      return res.status(200).json(complaint);
+    } catch (error) {
+      console.error('Error fetching complaint:', error);
+      // return res.status(500).json({ error: 'Internal server error' });
     }
   }
 

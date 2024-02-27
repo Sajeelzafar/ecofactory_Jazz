@@ -1,7 +1,7 @@
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { handleRegisterFormChange } from "../../redux/slices/registration";
+import { handleRegisterFormChange, resetRegisterForm } from "../../redux/slices/registration";
 
 const Registration = () => {
   const dispatch = useDispatch();
@@ -11,13 +11,12 @@ const Registration = () => {
   
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name && value) {
-      dispatch(handleRegisterFormChange({ name, value }));
-    }
+    dispatch(handleRegisterFormChange({ name, value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(resetRegisterForm())
     // Call a function with registerData here
     console.log("Register data:", registerData);
   };

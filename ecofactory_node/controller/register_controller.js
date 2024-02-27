@@ -54,16 +54,17 @@ class RegisterController {
       email: technologyproductcategoryinfos.email,
       contactNumber: technologyproductcategoryinfos.contactNumber,
       productCategory: technologyproductcategoryinfos.productCategory,
-      productSubCategory: technologyproductcategoryinfos.productSubCategory
-    }
+      productSubCategory: technologyproductcategoryinfos.productSubCategory,
+    };
 
     const settlementDetails = {
       bankName: settlementdetailsinfos.bankName,
       bankAccountNumber: settlementdetailsinfos.bankAccountNumber,
       accountHolderName: settlementdetailsinfos.accountHolderName,
-      accountHolderMobileNumber: settlementdetailsinfos.accountHolderMobileNumber,
-      accountHolderEmail: settlementdetailsinfos.accountHolderEmail
-    }
+      accountHolderMobileNumber:
+        settlementdetailsinfos.accountHolderMobileNumber,
+      accountHolderEmail: settlementdetailsinfos.accountHolderEmail,
+    };
 
     let transaction;
     try {
@@ -112,10 +113,11 @@ class RegisterController {
         );
       });
 
-      const newTechnologyproductcategoryinfos = await db.TechnologyProductCategoryInfo.create(
-        { ...technologyproductDetails, merchant_id: newMerchant.id },
-        { transaction }
-      );
+      const newTechnologyproductcategoryinfos =
+        await db.TechnologyProductCategoryInfo.create(
+          { ...technologyproductDetails, merchant_id: newMerchant.id },
+          { transaction }
+        );
 
       const newsettlementDetailsinfos = await db.SettlementDetailsInfo.create(
         { ...settlementDetails, merchant_id: newMerchant.id },
@@ -132,13 +134,54 @@ class RegisterController {
     } catch (error) {
       // If an error occurs, rollback the transaction
       if (transaction) await transaction.rollback();
-      console.error(
-        "Error registering merchant:",
-        error.message
-      );
+      console.error("Error registering merchant:", error.message);
       res.send({
         status: 400,
-        msg: `Error registering merchant: ${error.message}`
+        msg: `Error registering merchant: ${error.message}`,
+      });
+    }
+  }
+
+  async registerRole(req, res) {
+    const {
+      userData,
+    } = req.body;
+    const userDetails = {
+      fullName: userData.fullName,
+      businessName: userData.businessName,
+      mobileNumber: userData.mobileNumber,
+      username: userData.username,
+      email: userData.email,
+      password: userData.password,
+      role: userData.role,
+      company_type: "Private",
+      accountOpenerStatus: true,
+      bankAccountStatus: true,
+      higherManagementStatus: true,
+    };
+    let transaction;
+    try {
+      // Start a transaction
+      transaction = await db.sequelize.transaction();
+
+      // Create a new merchant with the provided details
+      const newUser = await db.Merchant.create(userDetails, {
+        transaction,
+      });
+
+      // Commit the transaction
+      await transaction.commit();
+      res.send({
+        status: 200,
+        msg: `${userData.role} registered successfully`,
+      });
+    } catch (error) {
+      // If an error occurs, rollback the transaction
+      if (transaction) await transaction.rollback();
+      console.error("Error registering user:", error.message);
+      res.send({
+        status: 400,
+        msg: `Error registering user: ${error.message}`,
       });
     }
   }

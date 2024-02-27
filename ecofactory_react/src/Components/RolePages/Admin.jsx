@@ -41,7 +41,7 @@ function Admin() {
   };
 
   const sidebarItems = [
-    { title: "Admin Home", link: "/admin" },
+    { title: "Admin Home", link: "/" },
     { title: "Complaints", link: "/manage-complaints" },
     { title: "Account Opener Home", link: "/account-opener-home" },
     { title: "Bank Home", link: "/bank-home" },
@@ -58,7 +58,7 @@ function Admin() {
       <Divider />
       <List>
         {sidebarItems.map((text, index) => (
-          <ListItem disablePadding key={text}>
+          <ListItem disablePadding key={text.title}>
             <NavLink
               to={`${text.link}`}
               style={{ textDecoration: "none", color: "inherit" }}

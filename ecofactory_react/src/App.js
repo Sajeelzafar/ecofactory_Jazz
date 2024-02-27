@@ -13,6 +13,10 @@ import AdminHome from "./Components/RolePages/AdminLayoutComponents/AdminHome";
 import Complaints from "./Components/PublicPages/Complaints";
 import HelpAndSupport from "./Components/PublicPages/HelpAndSupport";
 import ComplaintManage from "./Components/RolePages/AdminLayoutComponents/ComplaintManage";
+import ComplaintDetails from "./Components/RolePages/AdminLayoutComponents/ComplaintDetails";
+import ComplaintAnswer from "./Components/RolePages/AdminLayoutComponents/ComplaintAnswer";
+import UserManage from "./Components/RolePages/AdminLayoutComponents/UserManage";
+import UserManageSelect from "./Components/RolePages/AdminLayoutComponents/UserManageSelect";
 
 function App() {
   return (
@@ -27,9 +31,13 @@ function App() {
         <Route path="/" element={<Layout />}>
           {/* we want to protect these routes */}
           <Route element={<RequireAuth allowedPermissions={"admin"} />}>
-            <Route index={true} element={<Admin />} />
-            <Route path="/admin" element={<AdminHome />} />
+            {/* <Route index={true} element={<Admin />} /> */}
+            <Route index={true} element={<AdminHome />} />
             <Route path="/manage-complaints" element={<ComplaintManage />} />
+            <Route path="/manage-complaints/:id" element={<ComplaintDetails />} />
+            <Route path="/answer-complaints/:id" element={<ComplaintAnswer />} />
+            <Route path="/manage-users" element={<UserManage />} />
+            <Route path="/manage-users/:id" element={<UserManageSelect />} />
           </Route>
           {/* catch all */}
         </Route>

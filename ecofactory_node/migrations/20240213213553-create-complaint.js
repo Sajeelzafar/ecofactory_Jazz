@@ -10,22 +10,34 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       fullName: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       companyName: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       complaintType: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       phoneNumber: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       priority: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       message: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(1000)
+      },
+      anwserToMessage: {
+        type: Sequelize.STRING(1000)
+      },
+      status: {
+        type: Sequelize.STRING(20),
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,

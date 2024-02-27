@@ -8,6 +8,7 @@ import directorInfo from './slices/directorInfo';
 import authorisePersonnel from './slices/authorisePersonnel';
 import technologyProductCategoryInfo from './slices/technologyProductCategory';
 import settlementDetails from './slices/settlementDetails';
+import adminRegisteration from './slices/adminRegisteration';
 
 const rootReducer = combineReducers({
     complaints,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     authorisePersonnel,
     technologyProductCategoryInfo,
     settlementDetails,
+    adminRegisteration,
 });
 
 const store = configureStore({

@@ -1,6 +1,32 @@
 const db = require("../models");
 
-class MerchantController {
+class UserController {
+  async getAllUsers(req,res) {
+    try {
+      const allUsers = await db.Merchant.findAll();
+      res.status(200).json(allUsers);
+    } catch (error) {
+      console.error("Error fetching users:", error);
+      res.status(500).json({ error: "Failed to fetch users" });
+    }
+  }
+
+  async getUser(req, res) {
+    const { id } = req.params;
+    try {
+      // Find the complaint with the specified id
+      const user = await db.Merchant.findByPk(id);
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+      // Return the user data
+      return res.status(200).json(user);
+    } catch (error) {
+      console.error('Error fetching user:', error);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+  }
+
   async create_merchant(req, res) {
     const merchant = db.Merchant;
     const existingMerchant = await merchant.findOne({
@@ -51,4 +77,4 @@ class MerchantController {
   //   }
 }
 
-module.exports = new MerchantController();
+module.exports = new UserController();

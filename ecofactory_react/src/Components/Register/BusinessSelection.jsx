@@ -23,7 +23,7 @@ const BusinessSelection = () => {
         <br />
         <hr />
         <Typography variant="text.secondary" sx={{ color: "rgb(130, 117, 125)" }}>
-          To begin this journey please tell us what type of account you’d be
+          To begin this journey please tell us what type of account you&apos;d be
           opening.
         </Typography>
       </Stack>

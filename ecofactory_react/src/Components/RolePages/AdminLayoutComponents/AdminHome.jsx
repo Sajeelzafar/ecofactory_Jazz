@@ -1,8 +1,11 @@
 import React from 'react'
+import Admin from '../Admin'
 
 const AdminHome = () => {
   return (
-    <div>AdminHome</div>
+    <div>
+      HELLOD DSAJONDOSANDUOASNUODNASUONDOASB DSUNAODNASUONDASUON ODNSANDOASNDOSNAO DNSOANDOASNDONAS
+    </div>
   )
 }
 

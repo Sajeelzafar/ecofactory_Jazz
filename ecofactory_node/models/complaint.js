@@ -19,7 +19,9 @@ module.exports = (sequelize, DataTypes) => {
     complaintType: DataTypes.STRING,
     phoneNumber: DataTypes.STRING,
     priority: DataTypes.STRING,
-    message: DataTypes.STRING
+    message: DataTypes.STRING,
+    status: DataTypes.STRING,
+    anwserToMessage: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Complaint',
